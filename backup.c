@@ -25,13 +25,14 @@ int modify();
 int query_no();
 int query_name();
 int del();
+int statistics();
 void meun_1();
 void fun_meun_1();
 void meun_2();
 void meun_3();
 void fun_1();
 void fun_2();
-void fun_3();
+int fun_3();
 void fun_4_1(); 
 void fun_5(); 
 void fun_6();
@@ -122,6 +123,12 @@ void fun_meun_1()
 		switch(a){
 		case 1:
 		{
+			system("cls");
+			fun_1();
+			printf("初始化成功\n单击回车返回主菜单");
+			fflush ( stdin );
+			getchar ();
+			fflush ( stdin );
 			break;
 		}
 		case 2:
@@ -208,6 +215,7 @@ void fun_meun_1()
 		}
 		case 6:
 		{
+			statistics();
 			break;
 		}
 		case 7:
@@ -227,8 +235,6 @@ void fun_meun_1()
 			run1=0;
 			system("cls");
 			printf("正在退出系统.");
-			sleep(1);
-			printf(".");
 			sleep(1);
 			printf(".");
 			sleep(1);
@@ -270,15 +276,23 @@ void meun_3()
 	printf("选择所需功能(0-2):"); } 	
 void fun_1()
 {
-	
+	head_main=NULL;
 } 
 void fun_2()
 {
 	 
 } 
-void fun_3()
+int fun_3()
 {	
 	struct student *p;
+	p=head_main;
+	if(p!=NULL)
+	{
+		printf("已存在学生信息，是否清空以输入新信息？\n输入1并按下回车以确认继续，否则按回车返回上一级\n");
+		getchar() ;
+		if(getchar()=='1') ;
+		else return 0;
+	}
 	head_main=creat();
 } 
 void fun_4_1()
@@ -498,7 +512,47 @@ int del()
 	printf("删除成功"); 
 	sleep(1);
 }
-
+int statistics() 
+{
+	struct student *p4;
+	p4=head_main;
+	if(p4==NULL) 
+	{
+		system("cls");
+		printf("未定义的链表头");
+		printf("\n单击回车返回上级菜单");
+		fflush(stdin);
+		getchar();
+		fflush(stdin);
+		return 0;
+	}
+	int num=0,sum_all_ch=0,sum_all_co=0,sum_all_ma=0,sum_all_en=0;
+	float ave_all_ch=0,ave_all_co=0,ave_all_ma=0,ave_all_en=0;
+	do
+	{
+		num++;
+		sum_all_ch+=p4->Chinese;
+		sum_all_co+=p4->Computer;
+		sum_all_en+=p4->English;
+		sum_all_ma+=p4->Math;
+		p4=p4->next;
+	}while(p4!=NULL);
+	ave_all_ch=((float)sum_all_ch/num);
+	ave_all_co=((float)sum_all_co/num);
+	ave_all_en=((float)sum_all_en/num);
+	ave_all_ma=((float)sum_all_ma/num);
+	system("cls");
+	printf("此班级总人数为 %d ,平均分分别为\n",num);
+	printf("语文               %.2f\n",ave_all_ch);
+	printf("数学               %.2f\n",ave_all_ma);
+	printf("英语               %.2f\n",ave_all_en);
+	printf("计算机             %.2f\n",ave_all_co);
+	printf("\n单击回车返回上级菜单");
+	fflush(stdin);
+	getchar();
+	fflush(stdin);
+	return 0;
+}
 
 
 
