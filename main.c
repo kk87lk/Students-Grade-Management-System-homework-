@@ -4,6 +4,8 @@
 #include"malloc.h"
 #include"string.h"
 #define len sizeof(struct student)
+int n;
+struct student *head_main;
 int check(int q,int w,int e,int r);
 struct student
 {
@@ -26,6 +28,7 @@ int query_no();
 int query_name();
 int del();
 int statistics();
+int outfile ();
 void meun_1();
 void fun_meun_1();
 void meun_2();
@@ -56,8 +59,6 @@ int check(int q,int w,int e,int r)
 	} 
 	else return 0;
 }
-int n;
-struct student *head_main;
 struct student *creat(void)
 {
 	struct student *head,*p1,*p2;
@@ -92,6 +93,8 @@ struct student *creat(void)
 		p1->Average=p1->Sum/4;
 	}
 	p2->next=NULL;
+	printf("信息创建成功\n");
+	sleep(1); 
 	return (head);
 }
 void meun_1()
@@ -220,6 +223,7 @@ void fun_meun_1()
 		}
 		case 7:
 		{
+			fun_7();
 			break;
 		}
 		case 8:
@@ -302,7 +306,9 @@ void fun_5()
 void fun_6()
 {} 
 void fun_7()
-{} 
+{
+	outfile ();
+} 
 void fun_8()
 {
 	displaylist(head_main);
@@ -553,7 +559,44 @@ int statistics()
 	fflush(stdin);
 	return 0;
 }
-
+int outfile ()
+{
+	FILE *f;
+	f=fopen("d:\\stuinfo.txt","w");
+	if(f==NULL)
+	{
+	    printf("\n创建文件错误！");
+	    fflush(stdin);
+	    getchar();
+	    fflush(stdin);
+	    return 0;
+	}
+	struct student *p;
+	p=head_main;
+	if(p==NULL) 
+	{
+		system("cls");
+		printf("未定义的链表头");
+		printf("\n单击回车返回上级菜单");
+		fflush(stdin);
+		getchar();
+		fflush(stdin);
+		return 0;
+	}
+	fprintf(f,"学号       姓名   语文 数学 外语 计算机 总分 均分\n");
+	while(p!=NULL)
+	{
+		fprintf(f,"%-10s %-6s %-4d %-4d %-4d %-6d %-4d %-4.2f\n",p->No,p->Name,p->Chinese,p->Math,p->English,p->Computer,p->Sum,p->Average);
+		p=p->next;
+	}
+	fclose(f);
+	system("cls");
+	printf("d:\\stuinfo.txt创建成功\n\n");
+	printf("单击回车返回主菜单");
+	fflush (stdin);
+	getchar();
+	fflush (stdin);
+	}
 
 
 
