@@ -3,6 +3,7 @@
 #include "time.h"
 #include "malloc.h"
 #include "string.h"
+#include "Windows.h"
 #define len sizeof(struct student)
 #define offset 49
 int n;
@@ -253,9 +254,7 @@ void fun_meun_1 ()							//主菜单功能函数
 				run1 = 0;
 				system("cls");
 				printf ("正在退出系统.");
-				sleep (1);
-				printf (".");
-				sleep (1);
+				Sleep(500);
 				system("cls");
 				printf ("系统已关闭");
 				break;
